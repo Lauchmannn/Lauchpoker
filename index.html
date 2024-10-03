@@ -24,34 +24,24 @@
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="text" id="player1-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player1')" id="submit-player1">Tipp abgeben</button>
-        <p>Chips: <span id="player1-chips">1000</span></p>
-        <p>Pot: <span id="player1-pot">0</span></p>
         <input type="number" id="player1-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player1', 'set')" id="set-player1" disabled>Setzen</button>
-        <button onclick="placeBet('player1', 'raise')" id="bet-player1" disabled>Erhöhen</button>
-        <button onclick="placeBet('player1', 'call')" id="call-player1" disabled>Mitgehen</button>
-        <button onclick="fold('player1')" id="fold-player1" disabled>Aussteigen</button>
+        <button onclick="placeBet('player1')">Setzen</button>
+        <p>Chips: <span id="player1-chips">1000</span></p>
+        <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
     </div>
 
-    <!-- Wiederhole für Spieler 2, 3, und 4 -->
+    <!-- Spielermenü für Spieler 2 -->
     <div id="player2-menu" class="menu" style="display:none;">
         <h2>Spieler 2 <span class="signal" id="signal-player2"></span></h2>
         <p>Frage: <span class="question">Noch keine Frage</span></p>
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="text" id="player2-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player2')" id="submit-player2">Tipp abgeben</button>
-        <p>Chips: <span id="player2-chips">1000</span></p>
-        <p>Pot: <span id="player2-pot">0</span></p>
         <input type="number" id="player2-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player2', 'set')" id="set-player2" disabled>Setzen</button>
-        <button onclick="placeBet('player2', 'raise')" id="bet-player2" disabled>Erhöhen</button>
-        <button onclick="placeBet('player2', 'call')" id="call-player2" disabled>Mitgehen</button>
-        <button onclick="fold('player2')" id="fold-player2" disabled>Aussteigen</button>
+        <button onclick="placeBet('player2')">Setzen</button>
+        <p>Chips: <span id="player2-chips">1000</span></p>
+        <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
     </div>
 
@@ -62,15 +52,10 @@
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="text" id="player3-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player3')" id="submit-player3">Tipp abgeben</button>
-        <p>Chips: <span id="player3-chips">1000</span></p>
-        <p>Pot: <span id="player3-pot">0</span></p>
         <input type="number" id="player3-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player3', 'set')" id="set-player3" disabled>Setzen</button>
-        <button onclick="placeBet('player3', 'raise')" id="bet-player3" disabled>Erhöhen</button>
-        <button onclick="placeBet('player3', 'call')" id="call-player3" disabled>Mitgehen</button>
-        <button onclick="fold('player3')" id="fold-player3" disabled>Aussteigen</button>
+        <button onclick="placeBet('player3')">Setzen</button>
+        <p>Chips: <span id="player3-chips">1000</span></p>
+        <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
     </div>
 
@@ -81,15 +66,10 @@
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="text" id="player4-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player4')" id="submit-player4">Tipp abgeben</button>
-        <p>Chips: <span id="player4-chips">1000</span></p>
-        <p>Pot: <span id="player4-pot">0</span></p>
         <input type="number" id="player4-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player4', 'set')" id="set-player4" disabled>Setzen</button>
-        <button onclick="placeBet('player4', 'raise')" id="bet-player4" disabled>Erhöhen</button>
-        <button onclick="placeBet('player4', 'call')" id="call-player4" disabled>Mitgehen</button>
-        <button onclick="fold('player4')" id="fold-player4" disabled>Aussteigen</button>
+        <button onclick="placeBet('player4')">Setzen</button>
+        <p>Chips: <span id="player4-chips">1000</span></p>
+        <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
     </div>
 
@@ -103,22 +83,12 @@
 
         <h3>Frage, Lösung und Tipps:</h3>
         <input type="text" id="question" placeholder="Frage eingeben">
-        <input type="text" id="solution" placeholder="Lösung eingeben">
         <input type="text" id="tip1" placeholder="Tipp 1 eingeben">
         <input type="text" id="tip2" placeholder="Tipp 2 eingeben">
         <input type="text" id="tip3" placeholder="Tipp 3 eingeben">
         <button onclick="startRound()">Runde starten</button>
-        <button onclick="revealTip(1)">Tipp 1 aufdecken</button>
-        <button onclick="revealTip(2)">Tipp 2 aufdecken</button>
-        <button onclick="revealTip(3)">Tipp 3 aufdecken</button>
 
-        <h3>Antworten der Spieler:</h3>
-        <p>Spieler 1 Antwort: <span id="answer-player1">Noch keine Antwort</span></p>
-        <p>Spieler 2 Antwort: <span id="answer-player2">Noch keine Antwort</span></p>
-        <p>Spieler 3 Antwort: <span id="answer-player3">Noch keine Antwort</span></p>
-        <p>Spieler 4 Antwort: <span id="answer-player4">Noch keine Antwort</span></p>
-
-        <button onclick="startBettingRound()">Setzrunde starten</button>
+        <h3>Pot: <span id="pot">0</span></h3>
 
         <button onclick="closeMenu()">Zurück</button>
     </div>
