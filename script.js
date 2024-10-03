@@ -3,6 +3,7 @@ let bettingPhase = false;
 let currentPlayer = 1;
 let currentBet = 0;  // Der aktuelle höchste Einsatz
 let playersInRound = { 'player1': true, 'player2': true, 'player3': true, 'player4': true };  // Spieler in der Runde
+let initialBets = { 'player1': 0, 'player2': 0, 'player3': 0, 'player4': 0 };  // Für Blinds und Einsätze
 
 // Runde starten: Frage, Lösung und Tipps sammeln
 function startRound() {
@@ -39,7 +40,7 @@ function submitAnswer(player) {
     document.getElementById(`submit-${player}`).disabled = true;
 }
 
-// Startchips setzen
+// Startchips setzen und Blinds automatisch abziehen
 function setStartingChips() {
     const startingChips = document.getElementById('starting-chips').value;
     document.getElementById('player1-chips').textContent = startingChips;
@@ -51,6 +52,17 @@ function setStartingChips() {
     localStorage.setItem('player2Chips', startingChips);
     localStorage.setItem('player3Chips', startingChips);
     localStorage.setItem('player4Chips', startingChips);
+
+    // Ziehe automatisch die Blinds ab
+    const smallBlind = parseInt(document.getElementById('small-blind').value);
+    const bigBlind = parseInt(document.getElementById('big-blind').value);
+
+    deductBlind('player1', smallBlind);
+    deductBlind('player2', bigBlind);
+
+    initialBets['player1'] = smallBlind;
+    initialBets['player2'] = bigBlind;
+    currentBet = bigBlind;
 }
 
 // Blinds anpassen
@@ -64,40 +76,53 @@ function adjustBlinds() {
     document.getElementById('player4-blind').textContent = 'Kein Blind';
 }
 
-// Einsatz setzen
+// Blind automatisch abziehen
+function deductBlind(player, blindAmount) {
+    const chipsElement = document.getElementById(`${player}-chips`);
+    const currentChips = parseInt(chipsElement.textContent);
+
+    chipsElement.textContent = currentChips - blindAmount;
+    currentPot += blindAmount;
+    updatePotDisplay();
+}
+
+// Einsatz setzen (Raise oder Call)
 function placeBet(player, action) {
     if (!bettingPhase || !playersInRound[player]) {
         return;  // Setzen nicht erlaubt, wenn die Wettphase nicht gestartet wurde oder der Spieler gefoldet hat
     }
 
-    const bet = parseInt(document.getElementById(`${player}-bet`).value);
-    const chips = document.getElementById(`${player}-chips`);
-    const currentChips = parseInt(chips.textContent);
+    const betInput = document.getElementById(`${player}-bet`);
+    const chipsElement = document.getElementById(`${player}-chips`);
+    const currentChips = parseInt(chipsElement.textContent);
+    let betAmount = parseInt(betInput.value);
 
     if (action === 'raise') {
-        if (bet > currentChips || bet <= currentBet) {
-            return;  // Ungültiger Einsatz
+        if (betAmount <= currentBet || betAmount > currentChips) {
+            return;  // Ungültiger Einsatz, wenn der Spieler nicht mehr als den aktuellen Einsatz setzt oder nicht genug Chips hat
         }
-        currentBet = bet;
+        currentBet = betAmount;  // Aktualisiere den höchsten Einsatz
     } else if (action === 'call') {
-        if (currentBet > currentChips) {
+        betAmount = currentBet - initialBets[player];  // Differenzbetrag, um den aktuellen Einsatz zu erreichen
+        if (betAmount > currentChips) {
             return;  // Spieler kann den Einsatz nicht mitgehen
         }
     }
 
-    chips.textContent = currentChips - currentBet;
-    currentPot += currentBet;
+    chipsElement.textContent = currentChips - betAmount;
+    initialBets[player] += betAmount;  // Aktualisiere den Einsatz des Spielers
+    currentPot += betAmount;
     updatePotDisplay();
     advanceToNextPlayer();
 }
 
-// Spieler aussteigen lassen
+// Spieler aussteigen lassen (Fold)
 function fold(player) {
     playersInRound[player] = false;
     advanceToNextPlayer();
 }
 
-// Aktuellen Pot anzeigen
+// Pot-Anzeige aktualisieren
 function updatePotDisplay() {
     document.getElementById('player1-pot').textContent = currentPot;
     document.getElementById('player2-pot').textContent = currentPot;
@@ -137,9 +162,15 @@ function activatePlayer(player) {
     }
 }
 
-// Zum nächsten Spieler gehen
+// Zum nächsten Spieler wechseln
 function advanceToNextPlayer() {
     currentPlayer++;
+
+    // Prüfen, ob der nächste Spieler aktiv ist
+    while (currentPlayer <= 4 && !playersInRound[`player${currentPlayer}`]) {
+        currentPlayer++;
+    }
+
     if (currentPlayer <= 4) {
         activatePlayer(currentPlayer);
     } else {
@@ -159,3 +190,4 @@ function closeMenu() {
     document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
     document.getElementById('main-menu').style.display = 'block';
 }
+
