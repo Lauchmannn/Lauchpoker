@@ -18,7 +18,7 @@
         <button onclick="openMenu('moderator')">Moderator</button>
     </div>
 
-    <!-- Spielermenü -->
+    <!-- Spielermenü für Spieler 1 -->
     <div id="player1-menu" class="menu">
         <h2>Spieler 1</h2>
         <p>Chips: <span id="player1-chips">1000</span></p>
@@ -26,9 +26,34 @@
         <button onclick="placeBet('player1')">Einsatz setzen</button>
         <button onclick="closeMenu()">Zurück</button>
     </div>
-    
-    <!-- Wiederholung für Spieler 2, 3 und 4 (Einfach kopieren und IDs anpassen) -->
-    
+
+    <!-- Spielermenü für Spieler 2 -->
+    <div id="player2-menu" class="menu">
+        <h2>Spieler 2</h2>
+        <p>Chips: <span id="player2-chips">1000</span></p>
+        <input type="number" id="player2-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player2')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
+
+    <!-- Spielermenü für Spieler 3 -->
+    <div id="player3-menu" class="menu">
+        <h2>Spieler 3</h2>
+        <p>Chips: <span id="player3-chips">1000</span></p>
+        <input type="number" id="player3-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player3')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
+
+    <!-- Spielermenü für Spieler 4 -->
+    <div id="player4-menu" class="menu">
+        <h2>Spieler 4</h2>
+        <p>Chips: <span id="player4-chips">1000</span></p>
+        <input type="number" id="player4-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player4')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
+
     <!-- Moderatorenmenü -->
     <div id="moderator-menu" class="menu">
         <h2>Moderator</h2>
