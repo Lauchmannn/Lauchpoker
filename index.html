@@ -1,115 +1,54 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizpoker</title>
-    <style>
-        /* Stile für das Kontrollpanel */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #333;
-            color: white;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        #control-panel {
-            display: block; /* Kontrollpanel sichtbar machen */
-            padding: 20px;
-            background-color: #444;
-            margin-bottom: 20px;
-            border: 1px solid white;
-            width: 80%; /* Breite des Kontrollpanels festlegen */
-            margin: 0 auto; /* zentrieren */
-        }
-
-        #control-panel input, #control-panel textarea {
-            margin: 10px;
-            padding: 5px;
-        }
-
-        /* Stile für das Overlay */
-        #overlay {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-        }
-
-        #chips-display div {
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 5px;
-        }
-
-        #question-display {
-            font-size: 28px;
-            margin-top: 20px;
-        }
-
-        #tips-display {
-            font-size: 20px;
-            margin-top: 10px;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Kontrollpanel -->
-    <div id="control-panel">
-        <h1>Kontrollpanel</h1>
-        <div>
-            <label for="question">Frage:</label>
-            <textarea id="question" placeholder="Frage eingeben"></textarea>
-        </div>
-        <div>
-            <label for="tip1">Tipp 1:</label>
-            <input type="text" id="tip1" placeholder="Tipp 1">
-        </div>
-        <div>
-            <label for="tip2">Tipp 2:</label>
-            <input type="text" id="tip2" placeholder="Tipp 2">
-        </div>
-        <div>
-            <label for="tip3">Tipp 3:</label>
-            <input type="text" id="tip3" placeholder="Tipp 3">
-        </div>
-        <div>
-            <label for="answer">Ergebnis:</label>
-            <input type="text" id="answer" placeholder="Ergebnis">
-        </div>
-        <button onclick="startRound()">Runde starten</button>
-        <button onclick="revealAnswers()">Antworten aufdecken</button>
+    <h1>Quizpoker</h1>
+    
+    <!-- Hauptmenü -->
+    <div id="main-menu">
+        <button onclick="openMenu('player1')">Spieler 1</button>
+        <button onclick="openMenu('player2')">Spieler 2</button>
+        <button onclick="openMenu('player3')">Spieler 3</button>
+        <button onclick="openMenu('player4')">Spieler 4</button>
+        <button onclick="openMenu('moderator')">Moderator</button>
     </div>
 
-    <!-- Overlay -->
-    <div id="overlay">
-        <div id="question-display">Frage wird hier angezeigt...</div>
-        <div id="tips-display">Tipps werden hier angezeigt...</div>
-        <div id="answer-display"></div>
+    <!-- Spielermenü -->
+    <div id="player1-menu" class="menu">
+        <h2>Spieler 1</h2>
+        <p>Chips: <span id="player1-chips">1000</span></p>
+        <input type="number" id="player1-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player1')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
+    
+    <!-- Wiederholung für Spieler 2, 3 und 4 (Einfach kopieren und IDs anpassen) -->
+    
+    <!-- Moderatorenmenü -->
+    <div id="moderator-menu" class="menu">
+        <h2>Moderator</h2>
+        <h3>Blinds:</h3>
+        <label for="small-blind">Small Blind:</label>
+        <input type="number" id="small-blind" value="50">
+        <label for="big-blind">Big Blind:</label>
+        <input type="number" id="big-blind" value="100">
+        <button onclick="adjustBlinds()">Blinds anpassen</button>
+        
+        <h3>Fragen und Tipps:</h3>
+        <input type="text" id="question" placeholder="Frage eingeben">
+        <input type="text" id="tip1" placeholder="Tipp 1">
+        <input type="text" id="tip2" placeholder="Tipp 2">
+        <input type="text" id="tip3" placeholder="Tipp 3">
+        <button onclick="setQuestion()">Frage und Tipps setzen</button>
+        
+        <button onclick="closeMenu()">Zurück</button>
     </div>
 
-    <script>
-        // Funktion, um die Runde zu starten und die Frage und Tipps anzuzeigen
-        function startRound() {
-            const question = document.getElementById('question').value;
-            const tip1 = document.getElementById('tip1').value;
-            const tip2 = document.getElementById('tip2').value;
-            const tip3 = document.getElementById('tip3').value;
-
-            document.getElementById('question-display').innerHTML = `Frage: ${question}`;
-            document.getElementById('tips-display').innerHTML = `Tipp 1: ${tip1}
+    <script src="script.js"></script>
+</body>
+</html>
