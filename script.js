@@ -99,7 +99,7 @@ function revealTip(tipNumber) {
 // Setzrunde starten
 function startBettingRound() {
     bettingPhase = true;
-    currentPlayer = 1; // Setze auf Spieler 1
+    currentPlayer = 1; // Setze auf Spieler 12
 
     activatePlayer(currentPlayer);
 }
