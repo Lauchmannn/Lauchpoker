@@ -1,16 +1,28 @@
 let currentPot = 0;
 let bettingPhase = false;
 
-// Runde starten: Frage und Lösung sammeln
+// Runde starten: Frage, Lösung und Tipps sammeln
 function startRound() {
     const question = document.getElementById('question').value;
     const solution = document.getElementById('solution').value;
+    const tip1 = document.getElementById('tip1').value;
+    const tip2 = document.getElementById('tip2').value;
+    const tip3 = document.getElementById('tip3').value;
 
-    // Speichere die Frage und Lösung
+    // Speichere die Frage, Lösung und Tipps
     localStorage.setItem('question', question);
     localStorage.setItem('solution', solution);
+    localStorage.setItem('tip1', tip1);
+    localStorage.setItem('tip2', tip2);
+    localStorage.setItem('tip3', tip3);
 
+    // Setze die Frage für alle Spieler
     document.querySelectorAll('.question').forEach(el => el.textContent = question);
+    
+    // Setze die Tipps zurück
+    document.querySelectorAll('.tip1').forEach(el => el.textContent = '---');
+    document.querySelectorAll('.tip2').forEach(el => el.textContent = '---');
+    document.querySelectorAll('.tip3').forEach(el => el.textContent = '---');
 
     alert('Runde gestartet! Die Spieler können jetzt ihre Tipps abgeben.');
     bettingPhase = true; // Aktiviere die Wettrunde
@@ -83,6 +95,13 @@ function updatePotDisplay() {
     document.getElementById('player2-pot').textContent = currentPot;
     document.getElementById('player3-pot').textContent = currentPot;
     document.getElementById('player4-pot').textContent = currentPot;
+}
+
+// Tipp aufdecken
+function revealTip(tipNumber) {
+    const tip = localStorage.getItem(`tip${tipNumber}`);
+    document.querySelectorAll(`.tip${tipNumber}`).forEach(el => el.textContent = tip);
+    alert(`Tipp ${tipNumber} aufgedeckt: ${tip}`);
 }
 
 // Runde beginnen, in der die Spieler setzen können
