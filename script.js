@@ -1,5 +1,6 @@
 let currentPot = 0;
 let bettingPhase = false;
+let currentPlayer = 1;
 
 // Runde starten: Frage, Lösung und Tipps sammeln
 function startRound() {
@@ -25,7 +26,6 @@ function startRound() {
     document.querySelectorAll('.tip3').forEach(el => el.textContent = '---');
 
     alert('Runde gestartet! Die Spieler können jetzt ihre Tipps abgeben.');
-    bettingPhase = true; // Aktiviere die Wettrunde
 }
 
 // Tipp von Spielern entgegennehmen
@@ -86,6 +86,7 @@ function placeBet(player) {
         currentPot += bet;
         updatePotDisplay();
         alert(`${player} hat ${bet} Chips gesetzt.`);
+        advanceToNextPlayer();
     }
 }
 
@@ -104,21 +105,35 @@ function revealTip(tipNumber) {
     alert(`Tipp ${tipNumber} aufgedeckt: ${tip}`);
 }
 
-// Runde beginnen, in der die Spieler setzen können
-function startBettingPhase() {
-    alert('Die Wettrunde beginnt, Spieler können jetzt setzen.');
+// Setzrunde starten
+function startBettingRound() {
+    alert('Setzrunde beginnt!');
     bettingPhase = true;
+    currentPlayer = 1; // Setze auf Spieler 1
 
-    // Aktiviere die Einsatzfelder
-    document.getElementById('bet-player1').disabled = false;
-    document.getElementById('bet-player2').disabled = false;
-    document.getElementById('bet-player3').disabled = false;
-    document.getElementById('bet-player4').disabled = false;
+    activatePlayer(currentPlayer);
+}
 
-    document.getElementById('player1-bet').disabled = false;
-    document.getElementById('player2-bet').disabled = false;
-    document.getElementById('player3-bet').disabled = false;
-    document.getElementById('player4-bet').disabled = false;
+// Spieler aktivieren
+function activatePlayer(player) {
+    document.querySelectorAll('.signal').forEach(signal => signal.classList.remove('active'));
+    document.getElementById(`signal-player${player}`).classList.add('active');
+
+    document.querySelectorAll('input[type="number"]').forEach(input => input.disabled = true);
+    document.querySelectorAll('button[id^="bet-player"]').forEach(button => button.disabled = true);
+
+    document.getElementById(`player${player}-bet`).disabled = false;
+    document.getElementById(`bet-player${player}`).disabled = false;
+}
+
+// Zum nächsten Spieler gehen
+function advanceToNextPlayer() {
+    currentPlayer++;
+    if (currentPlayer <= 4) {
+        activatePlayer(currentPlayer);
+    } else {
+        alert('Alle Spieler haben gesetzt.');
+    }
 }
 
 // Menü öffnen
