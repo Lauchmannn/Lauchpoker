@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Quizpoker</h1>
-    
+
     <!-- Hauptmenü -->
     <div id="main-menu">
         <button onclick="openMenu('player1')">Spieler 1</button>
@@ -57,7 +57,7 @@
     <!-- Moderatorenmenü -->
     <div id="moderator-menu" class="menu">
         <h2>Moderator</h2>
-        
+
         <!-- Startchips einstellen -->
         <h3>Startchips für alle Spieler festlegen:</h3>
         <input type="number" id="starting-chips" value="1000" placeholder="Startchips eingeben">
@@ -76,6 +76,12 @@
         <input type="text" id="tip2" placeholder="Tipp 2">
         <input type="text" id="tip3" placeholder="Tipp 3">
         <button onclick="setQuestion()">Frage und Tipps setzen</button>
+
+        <!-- Lösungseingabe -->
+        <h3>Lösung:</h3>
+        <input type="text" id="solution" placeholder="Lösung eingeben">
+        <button onclick="setSolution()">Lösung setzen</button>
+        <p id="current-solution">Aktuelle Lösung: <span>Keine Lösung gesetzt</span></p>
 
         <button onclick="closeMenu()">Zurück</button>
     </div>
