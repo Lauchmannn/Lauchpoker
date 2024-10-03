@@ -86,11 +86,15 @@ function placeBet(player, action) {
     const currentChips = parseInt(chipsElement.textContent);
     let betAmount = parseInt(betInput.value);
 
+    if (isNaN(betAmount) || betAmount <= 0 || betAmount > currentChips) {
+        return; // Ungültiger Einsatz
+    }
+
     if (action === 'raise') {
-        if (betAmount <= currentBet || betAmount > currentChips) {
-            return;  // Ungültiger Einsatz, wenn der Spieler nicht mehr als den aktuellen Einsatz setzt oder nicht genug Chips hat
+        if (betAmount <= currentBet) {
+            return;  // Einsatz muss höher sein als der aktuelle höchste Einsatz
         }
-        currentBet = betAmount;  // Aktualisiere den höchsten Einsatz
+        currentBet = betAmount;
     } else if (action === 'call') {
         betAmount = currentBet - initialBets[player];  // Differenzbetrag, um den aktuellen Einsatz zu erreichen
         if (betAmount > currentChips) {
@@ -99,7 +103,7 @@ function placeBet(player, action) {
     }
 
     chipsElement.textContent = currentChips - betAmount;
-    initialBets[player] += betAmount;  // Aktualisiere den Einsatz des Spielers
+    initialBets[player] += betAmount;
     currentPot += betAmount;
     updatePotDisplay();
     advanceToNextPlayer();
@@ -155,7 +159,6 @@ function activatePlayer(player) {
 function advanceToNextPlayer() {
     currentPlayer++;
 
-    // Prüfen, ob der nächste Spieler aktiv ist
     while (currentPlayer <= 4 && !playersInRound[`player${currentPlayer}`]) {
         currentPlayer++;
     }
@@ -163,8 +166,7 @@ function advanceToNextPlayer() {
     if (currentPlayer <= 4) {
         activatePlayer(currentPlayer);
     } else {
-        // Setzrunde beendet
-        bettingPhase = false;
+        bettingPhase = false;  // Setzrunde beendet
     }
 }
 
