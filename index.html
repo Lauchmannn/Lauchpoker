@@ -25,7 +25,9 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="number" id="player1-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player1')">Setzen</button>
+        <button onclick="placeBet('player1', 'raise')">Erhöhen</button>
+        <button onclick="placeBet('player1', 'call')">Mitgehen</button>
+        <button onclick="fold('player1')">Aussteigen</button>
         <p>Chips: <span id="player1-chips">1000</span></p>
         <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
@@ -39,7 +41,9 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="number" id="player2-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player2')">Setzen</button>
+        <button onclick="placeBet('player2', 'raise')">Erhöhen</button>
+        <button onclick="placeBet('player2', 'call')">Mitgehen</button>
+        <button onclick="fold('player2')">Aussteigen</button>
         <p>Chips: <span id="player2-chips">1000</span></p>
         <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
@@ -53,7 +57,9 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="number" id="player3-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player3')">Setzen</button>
+        <button onclick="placeBet('player3', 'raise')">Erhöhen</button>
+        <button onclick="placeBet('player3', 'call')">Mitgehen</button>
+        <button onclick="fold('player3')">Aussteigen</button>
         <p>Chips: <span id="player3-chips">1000</span></p>
         <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
@@ -67,7 +73,9 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="number" id="player4-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player4')">Setzen</button>
+        <button onclick="placeBet('player4', 'raise')">Erhöhen</button>
+        <button onclick="placeBet('player4', 'call')">Mitgehen</button>
+        <button onclick="fold('player4')">Aussteigen</button>
         <p>Chips: <span id="player4-chips">1000</span></p>
         <p>Pot: <span id="pot">0</span></p>
         <button onclick="closeMenu()">Zurück</button>
@@ -86,7 +94,9 @@
         <input type="text" id="tip1" placeholder="Tipp 1 eingeben">
         <input type="text" id="tip2" placeholder="Tipp 2 eingeben">
         <input type="text" id="tip3" placeholder="Tipp 3 eingeben">
-        <button onclick="startRound()">Runde starten</button>
+        <button onclick="revealTip(1)">Tipp 1 aufdecken</button>
+        <button onclick="revealTip(2)">Tipp 2 aufdecken</button>
+        <button onclick="revealTip(3)">Tipp 3 aufdecken</button>
 
         <h3>Pot: <span id="pot">0</span></h3>
 
