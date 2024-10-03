@@ -1,6 +1,8 @@
 let currentPot = 0;
 let bettingPhase = false;
 let currentPlayer = 1;
+let currentBet = 0;  // Der aktuelle höchste Einsatz
+let playersInRound = { 'player1': true, 'player2': true, 'player3': true, 'player4': true };  // Spieler in der Runde
 
 // Runde starten: Frage, Lösung und Tipps sammeln
 function startRound() {
@@ -63,22 +65,35 @@ function adjustBlinds() {
 }
 
 // Einsatz setzen
-function placeBet(player) {
-    if (!bettingPhase) {
-        return;  // Setzen nicht erlaubt, wenn die Wettphase nicht gestartet wurde
+function placeBet(player, action) {
+    if (!bettingPhase || !playersInRound[player]) {
+        return;  // Setzen nicht erlaubt, wenn die Wettphase nicht gestartet wurde oder der Spieler gefoldet hat
     }
 
     const bet = parseInt(document.getElementById(`${player}-bet`).value);
     const chips = document.getElementById(`${player}-chips`);
     const currentChips = parseInt(chips.textContent);
 
-    if (bet > currentChips || bet <= 0) {
-        return; // Ungültiger Einsatz
+    if (action === 'raise') {
+        if (bet > currentChips || bet <= currentBet) {
+            return;  // Ungültiger Einsatz
+        }
+        currentBet = bet;
+    } else if (action === 'call') {
+        if (currentBet > currentChips) {
+            return;  // Spieler kann den Einsatz nicht mitgehen
+        }
     }
 
-    chips.textContent = currentChips - bet;
-    currentPot += bet;
+    chips.textContent = currentChips - currentBet;
+    currentPot += currentBet;
     updatePotDisplay();
+    advanceToNextPlayer();
+}
+
+// Spieler aussteigen lassen
+function fold(player) {
+    playersInRound[player] = false;
     advanceToNextPlayer();
 }
 
@@ -99,7 +114,7 @@ function revealTip(tipNumber) {
 // Setzrunde starten
 function startBettingRound() {
     bettingPhase = true;
-    currentPlayer = 1; // Setze auf Spieler 12
+    currentPlayer = 1; // Setze auf Spieler 1
 
     activatePlayer(currentPlayer);
 }
@@ -111,9 +126,15 @@ function activatePlayer(player) {
 
     document.querySelectorAll('input[type="number"]').forEach(input => input.disabled = true);
     document.querySelectorAll('button[id^="bet-player"]').forEach(button => button.disabled = true);
+    document.querySelectorAll('button[id^="call-player"]').forEach(button => button.disabled = true);
+    document.querySelectorAll('button[id^="fold-player"]').forEach(button => button.disabled = true);
 
-    document.getElementById(`player${player}-bet`).disabled = false;
-    document.getElementById(`bet-player${player}`).disabled = false;
+    if (playersInRound[player]) {
+        document.getElementById(`player${player}-bet`).disabled = false;
+        document.getElementById(`bet-player${player}`).disabled = false;
+        document.getElementById(`call-player${player}`).disabled = false;
+        document.getElementById(`fold-player${player}`).disabled = false;
+    }
 }
 
 // Zum nächsten Spieler gehen
@@ -121,6 +142,9 @@ function advanceToNextPlayer() {
     currentPlayer++;
     if (currentPlayer <= 4) {
         activatePlayer(currentPlayer);
+    } else {
+        // Setzrunde beendet
+        bettingPhase = false;
     }
 }
 
