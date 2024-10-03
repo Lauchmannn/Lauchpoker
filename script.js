@@ -87,17 +87,20 @@ function placeBet(player, action) {
     let betAmount = parseInt(betInput.value);
 
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > currentChips) {
+        alert("Ungültiger Einsatz");
         return; // Ungültiger Einsatz
     }
 
     if (action === 'raise') {
         if (betAmount <= currentBet) {
+            alert("Der Einsatz muss höher als der aktuelle Einsatz sein.");
             return;  // Einsatz muss höher sein als der aktuelle höchste Einsatz
         }
         currentBet = betAmount;
     } else if (action === 'call') {
         betAmount = currentBet - initialBets[player];  // Differenzbetrag, um den aktuellen Einsatz zu erreichen
         if (betAmount > currentChips) {
+            alert("Nicht genug Chips für den Einsatz.");
             return;  // Spieler kann den Einsatz nicht mitgehen
         }
     }
