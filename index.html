@@ -20,7 +20,6 @@
     <!-- Spielermenü für Spieler 1 -->
     <div id="player1-menu" class="menu" style="display:none;">
         <h2>Spieler 1 <span class="signal" id="signal-player1"></span></h2>
-        <p>Blinds: <span id="player1-blind"></span></p>
         <p>Frage: <span class="question">Noch keine Frage</span></p>
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
@@ -39,7 +38,6 @@
     <!-- Spielermenü für Spieler 2 -->
     <div id="player2-menu" class="menu" style="display:none;">
         <h2>Spieler 2 <span class="signal" id="signal-player2"></span></h2>
-        <p>Blinds: <span id="player2-blind"></span></p>
         <p>Frage: <span class="question">Noch keine Frage</span></p>
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
@@ -58,7 +56,6 @@
     <!-- Spielermenü für Spieler 3 -->
     <div id="player3-menu" class="menu" style="display:none;">
         <h2>Spieler 3 <span class="signal" id="signal-player3"></span></h2>
-        <p>Blinds: <span id="player3-blind"></span></p>
         <p>Frage: <span class="question">Noch keine Frage</span></p>
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
@@ -77,7 +74,6 @@
     <!-- Spielermenü für Spieler 4 -->
     <div id="player4-menu" class="menu" style="display:none;">
         <h2>Spieler 4 <span class="signal" id="signal-player4"></span></h2>
-        <p>Blinds: <span id="player4-blind"></span></p>
         <p>Frage: <span class="question">Noch keine Frage</span></p>
         <p>Tipp 1: <span class="tip1">---</span></p>
         <p>Tipp 2: <span class="tip2">---</span></p>
@@ -117,13 +113,6 @@
         <p>Spieler 2 Antwort: <span id="answer-player2">Noch keine Antwort</span></p>
         <p>Spieler 3 Antwort: <span id="answer-player3">Noch keine Antwort</span></p>
         <p>Spieler 4 Antwort: <span id="answer-player4">Noch keine Antwort</span></p>
-
-        <h3>Blinds:</h3>
-        <label for="small-blind">Small Blind:</label>
-        <input type="number" id="small-blind" value="50">
-        <label for="big-blind">Big Blind:</label>
-        <input type="number" id="big-blind" value="100">
-        <button onclick="adjustBlinds()">Blinds anpassen</button>
 
         <button onclick="startBettingRound()">Setzrunde starten</button>
 
