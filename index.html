@@ -4,64 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizpoker</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Stile für das Kontrollpanel */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        #control-panel {
+            display: block; /* Kontrollpanel sichtbar machen */
+            padding: 20px;
+            background-color: #444;
+            margin-bottom: 20px;
+        }
+
+        #control-panel input, #control-panel textarea {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        /* Stile für das Overlay */
+        #overlay {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+        }
+
+        #chips-display div {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+
+        #question-display {
+            font-size: 28px;
+            margin-top: 20px;
+        }
+
+        #tips-display {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-    <!-- Kontrollpanel (nicht sichtbar im Stream) -->
+
+    <!-- Kontrollpanel -->
     <div id="control-panel">
         <h1>Kontrollpanel</h1>
         <div>
-            <label for="rounds">Anzahl der Runden:</label>
-            <input type="number" id="rounds" value="5">
-        </div>
-        <div>
-            <label for="chips">Start-Chips pro Spieler:</label>
-            <input type="number" id="chips" value="1000">
-        </div>
-        <div>
-            <label for="small-blind">Small Blind:</label>
-            <input type="number" id="small-blind" value="50">
-        </div>
-        <div>
-            <label for="big-blind">Big Blind:</label>
-            <input type="number" id="big-blind" value="100">
-        </div>
-        <div>
             <label for="question">Frage:</label>
-            <textarea id="question"></textarea>
+            <textarea id="question" placeholder="Frage eingeben"></textarea>
         </div>
         <div>
             <label for="tip1">Tipp 1:</label>
-            <input type="text" id="tip1">
+            <input type="text" id="tip1" placeholder="Tipp 1">
         </div>
         <div>
             <label for="tip2">Tipp 2:</label>
-            <input type="text" id="tip2">
+            <input type="text" id="tip2" placeholder="Tipp 2">
         </div>
         <div>
             <label for="tip3">Tipp 3:</label>
-            <input type="text" id="tip3">
+            <input type="text" id="tip3" placeholder="Tipp 3">
         </div>
         <div>
             <label for="answer">Ergebnis:</label>
-            <input type="text" id="answer">
+            <input type="text" id="answer" placeholder="Ergebnis">
         </div>
         <button onclick="startRound()">Runde starten</button>
         <button onclick="revealAnswers()">Antworten aufdecken</button>
     </div>
 
-    <!-- Overlay (sichtbar im Stream) -->
+    <!-- Overlay -->
     <div id="overlay">
-        <div id="question-display"></div>
-        <div id="tips-display"></div>
-        <div id="chips-display">
-            <div id="player1-chips">Spieler 1: <span id="p1-chips">1000</span> <span id="p1-blind">s</span></div>
-            <div id="player2-chips">Spieler 2: <span id="p2-chips">1000</span> <span id="p2-blind">b</span></div>
-            <div id="player3-chips">Spieler 3: <span id="p3-chips">1000</span> <span id="p3-blind"></span></div>
-            <div id="player4-chips">Spieler 4: <span id="p4-chips">1000</span> <span id="p4-blind"></span></div>
-        </div>
+        <div id="question-display">Frage wird hier angezeigt...</div>
+        <div id="tips-display">Tipps werden hier angezeigt...</div>
+        <div id="answer-display"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Funktion, um die Runde zu starten und die Frage und Tipps anzuzeigen
+        function startRound() {
+            const question = document.getElementById('question').value;
+            const tip1 = document.getElementById('tip1').value;
+            const tip2 = document.getElementById('tip2').value;
+            const tip3 = document.getElementById('tip3').value;
+
+            document.getElementById('question-display').innerHTML = `Frage: ${question}`;
+            document.getElementById('tips-display').innerHTML = `Tipp 1: ${tip1} <br> Tipp 2: ${tip2} <br> Tipp 3: ${tip3}`;
+        }
+
+        // Funktion, um die Antworten aufzudecken
+        function revealAnswers() {
+            const answer = document.getElementById('answer').value;
+            document.getElementById('answer-display').innerHTML = `Ergebnis: ${answer}`;
+        }
+    </script>
+
 </body>
 </html>
