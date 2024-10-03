@@ -20,6 +20,9 @@
             padding: 20px;
             background-color: #444;
             margin-bottom: 20px;
+            border: 1px solid white;
+            width: 80%; /* Breite des Kontrollpanels festlegen */
+            margin: 0 auto; /* zentrieren */
         }
 
         #control-panel input, #control-panel textarea {
@@ -109,15 +112,4 @@
             const tip3 = document.getElementById('tip3').value;
 
             document.getElementById('question-display').innerHTML = `Frage: ${question}`;
-            document.getElementById('tips-display').innerHTML = `Tipp 1: ${tip1} <br> Tipp 2: ${tip2} <br> Tipp 3: ${tip3}`;
-        }
-
-        // Funktion, um die Antworten aufzudecken
-        function revealAnswers() {
-            const answer = document.getElementById('answer').value;
-            document.getElementById('answer-display').innerHTML = `Ergebnis: ${answer}`;
-        }
-    </script>
-
-</body>
-</html>
+            document.getElementById('tips-display').innerHTML = `Tipp 1: ${tip1}
