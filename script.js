@@ -1,5 +1,5 @@
 // Startchips setzen (vom Moderator)
-function setStartingChips() {
+function setStartingChxips() {
     const startingChips = document.getElementById('starting-chips').value;
     document.getElementById('player1-chips').textContent = startingChips;
     document.getElementById('player2-chips').textContent = startingChips;
