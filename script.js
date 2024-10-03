@@ -65,17 +65,6 @@ function setStartingChips() {
     currentBet = bigBlind;
 }
 
-// Blinds anpassen
-function adjustBlinds() {
-    const smallBlind = document.getElementById('small-blind').value;
-    const bigBlind = document.getElementById('big-blind').value;
-
-    document.getElementById('player1-blind').textContent = 'Small Blind';
-    document.getElementById('player2-blind').textContent = 'Big Blind';
-    document.getElementById('player3-blind').textContent = 'Kein Blind';
-    document.getElementById('player4-blind').textContent = 'Kein Blind';
-}
-
 // Blind automatisch abziehen
 function deductBlind(player, blindAmount) {
     const chipsElement = document.getElementById(`${player}-chips`);
@@ -190,4 +179,3 @@ function closeMenu() {
     document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
     document.getElementById('main-menu').style.display = 'block';
 }
-
