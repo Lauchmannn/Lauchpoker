@@ -46,4 +46,66 @@ function placeBet(player) {
 
 // Blinds anpassen
 function adjustBlinds() {
-    const smallBlind = document.getElement
+    const smallBlind = document.getElementById('small-blind').value;
+    const bigBlind = document.getElementById('big-blind').value;
+    document.getElementById('player1-blind').textContent = 'Small Blind';
+    document.getElementById('player2-blind').textContent = 'Big Blind';
+    document.getElementById('player3-blind').textContent = 'Kein Blind';
+    document.getElementById('player4-blind').textContent = 'Kein Blind';
+
+    localStorage.setItem('smallBlind', smallBlind);
+    localStorage.setItem('bigBlind', bigBlind);
+
+    alert('Blinds eingestellt: Small Blind: ' + smallBlind + ' | Big Blind: ' + bigBlind);
+}
+
+// Runde starten: Frage und Blinds setzen
+function startRound() {
+    const question = document.getElementById('question').value;
+    const tip1 = document.getElementById('tip1').value;
+    const tip2 = document.getElementById('tip2').value;
+    const tip3 = document.getElementById('tip3').value;
+
+    document.querySelectorAll('.question').forEach(element => element.textContent = question);
+
+    document.querySelectorAll('.tip1').forEach(element => element.textContent = '---');
+    document.querySelectorAll('.tip2').forEach(element => element.textContent = '---');
+    document.querySelectorAll('.tip3').forEach(element => element.textContent = '---');
+
+    localStorage.setItem('question', question);
+    localStorage.setItem('tip1', tip1);
+    localStorage.setItem('tip2', tip2);
+    localStorage.setItem('tip3', tip3);
+
+    alert('Runde gestartet: Frage gesetzt.');
+}
+
+// Tipp aufdecken
+function revealTip(tipNumber) {
+    const tip = localStorage.getItem('tip' + tipNumber);
+
+    document.querySelectorAll('.tip' + tipNumber).forEach(element => element.textContent = tip);
+
+    alert('Tipp ' + tipNumber + ' aufgedeckt.');
+}
+
+// Beim Laden der Seite gespeicherte Frage und Tipps laden
+window.onload = function() {
+    const savedQuestion = localStorage.getItem('question');
+    const savedTip1 = localStorage.getItem('tip1');
+    const savedTip2 = localStorage.getItem('tip2');
+    const savedTip3 = localStorage.getItem('tip3');
+
+    if (savedQuestion) {
+        document.querySelectorAll('.question').forEach(element => element.textContent = savedQuestion);
+    }
+    if (savedTip1) {
+        document.querySelectorAll('.tip1').forEach(element => element.textContent = savedTip1);
+    }
+    if (savedTip2) {
+        document.querySelectorAll('.tip2').forEach(element => element.textContent = savedTip2);
+    }
+    if (savedTip3) {
+        document.querySelectorAll('.tip3').forEach(element => element.textContent = savedTip3);
+    }
+}
