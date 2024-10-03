@@ -22,17 +22,57 @@
     <div id="player1-menu" class="menu">
         <h2>Spieler 1</h2>
         <p>Blinds: <span id="player1-blind"></span></p>
-        <p>Frage: <span id="player-question">Noch keine Frage</span></p>
-        <p>Tipp 1: <span id="player1-tip1">---</span></p>
-        <p>Tipp 2: <span id="player1-tip2">---</span></p>
-        <p>Tipp 3: <span id="player1-tip3">---</span></p>
+        <p>Frage: <span class="question">Noch keine Frage</span></p>
+        <p>Tipp 1: <span class="tip1">---</span></p>
+        <p>Tipp 2: <span class="tip2">---</span></p>
+        <p>Tipp 3: <span class="tip3">---</span></p>
         <p>Chips: <span id="player1-chips">1000</span></p>
         <input type="number" id="player1-bet" placeholder="Einsatz">
         <button onclick="placeBet('player1')">Einsatz setzen</button>
         <button onclick="closeMenu()">Zurück</button>
     </div>
 
-    <!-- Weitere Spielermenüs (Spieler 2, 3 und 4 sind identisch, nur die IDs sind anders) -->
+    <!-- Spielermenü für Spieler 2 -->
+    <div id="player2-menu" class="menu">
+        <h2>Spieler 2</h2>
+        <p>Blinds: <span id="player2-blind"></span></p>
+        <p>Frage: <span class="question">Noch keine Frage</span></p>
+        <p>Tipp 1: <span class="tip1">---</span></p>
+        <p>Tipp 2: <span class="tip2">---</span></p>
+        <p>Tipp 3: <span class="tip3">---</span></p>
+        <p>Chips: <span id="player2-chips">1000</span></p>
+        <input type="number" id="player2-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player2')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
+
+    <!-- Spielermenü für Spieler 3 -->
+    <div id="player3-menu" class="menu">
+        <h2>Spieler 3</h2>
+        <p>Blinds: <span id="player3-blind"></span></p>
+        <p>Frage: <span class="question">Noch keine Frage</span></p>
+        <p>Tipp 1: <span class="tip1">---</span></p>
+        <p>Tipp 2: <span class="tip2">---</span></p>
+        <p>Tipp 3: <span class="tip3">---</span></p>
+        <p>Chips: <span id="player3-chips">1000</span></p>
+        <input type="number" id="player3-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player3')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
+
+    <!-- Spielermenü für Spieler 4 -->
+    <div id="player4-menu" class="menu">
+        <h2>Spieler 4</h2>
+        <p>Blinds: <span id="player4-blind"></span></p>
+        <p>Frage: <span class="question">Noch keine Frage</span></p>
+        <p>Tipp 1: <span class="tip1">---</span></p>
+        <p>Tipp 2: <span class="tip2">---</span></p>
+        <p>Tipp 3: <span class="tip3">---</span></p>
+        <p>Chips: <span id="player4-chips">1000</span></p>
+        <input type="number" id="player4-bet" placeholder="Einsatz">
+        <button onclick="placeBet('player4')">Einsatz setzen</button>
+        <button onclick="closeMenu()">Zurück</button>
+    </div>
 
     <!-- Moderatorenmenü -->
     <div id="moderator-menu" class="menu">
@@ -49,7 +89,7 @@
         <label for="big-blind">Big Blind:</label>
         <input type="number" id="big-blind" value="100">
         <button onclick="adjustBlinds()">Blinds anpassen</button>
-        
+
         <h3>Frage und Tipps:</h3>
         <input type="text" id="question" placeholder="Frage eingeben">
         <input type="text" id="tip1" placeholder="Tipp 1">
