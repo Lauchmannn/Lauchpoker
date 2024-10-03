@@ -24,8 +24,6 @@ function startRound() {
     document.querySelectorAll('.tip1').forEach(el => el.textContent = '---');
     document.querySelectorAll('.tip2').forEach(el => el.textContent = '---');
     document.querySelectorAll('.tip3').forEach(el => el.textContent = '---');
-
-    alert('Runde gestartet! Die Spieler können jetzt ihre Tipps abgeben.');
 }
 
 // Tipp von Spielern entgegennehmen
@@ -34,7 +32,9 @@ function submitAnswer(player) {
     localStorage.setItem(`${player}Answer`, answer);
     document.getElementById(`answer-${player}`).textContent = answer;
 
-    alert(`${player} hat seine Antwort abgegeben.`);
+    // Deaktiviere das Antwortfeld, damit der Spieler seinen Tipp nicht ändern kann
+    document.getElementById(`${player}-answer`).disabled = true;
+    document.getElementById(`submit-${player}`).disabled = true;
 }
 
 // Startchips setzen
@@ -49,8 +49,6 @@ function setStartingChips() {
     localStorage.setItem('player2Chips', startingChips);
     localStorage.setItem('player3Chips', startingChips);
     localStorage.setItem('player4Chips', startingChips);
-
-    alert('Startchips für alle Spieler auf ' + startingChips + ' gesetzt.');
 }
 
 // Blinds anpassen
@@ -62,32 +60,26 @@ function adjustBlinds() {
     document.getElementById('player2-blind').textContent = 'Big Blind';
     document.getElementById('player3-blind').textContent = 'Kein Blind';
     document.getElementById('player4-blind').textContent = 'Kein Blind';
-
-    alert('Blinds gesetzt: Small Blind ' + smallBlind + ' | Big Blind ' + bigBlind);
 }
 
 // Einsatz setzen
 function placeBet(player) {
     if (!bettingPhase) {
-        alert('Die Wettrunde hat noch nicht begonnen!');
-        return;
+        return;  // Setzen nicht erlaubt, wenn die Wettphase nicht gestartet wurde
     }
 
     const bet = parseInt(document.getElementById(`${player}-bet`).value);
     const chips = document.getElementById(`${player}-chips`);
     const currentChips = parseInt(chips.textContent);
 
-    if (bet > currentChips) {
-        alert(player + ' kann nicht mehr Chips setzen, als verfügbar sind.');
-    } else if (bet <= 0) {
-        alert('Einsatz muss größer als 0 sein.');
-    } else {
-        chips.textContent = currentChips - bet;
-        currentPot += bet;
-        updatePotDisplay();
-        alert(`${player} hat ${bet} Chips gesetzt.`);
-        advanceToNextPlayer();
+    if (bet > currentChips || bet <= 0) {
+        return; // Ungültiger Einsatz
     }
+
+    chips.textContent = currentChips - bet;
+    currentPot += bet;
+    updatePotDisplay();
+    advanceToNextPlayer();
 }
 
 // Aktuellen Pot anzeigen
@@ -102,12 +94,10 @@ function updatePotDisplay() {
 function revealTip(tipNumber) {
     const tip = localStorage.getItem(`tip${tipNumber}`);
     document.querySelectorAll(`.tip${tipNumber}`).forEach(el => el.textContent = tip);
-    alert(`Tipp ${tipNumber} aufgedeckt: ${tip}`);
 }
 
 // Setzrunde starten
 function startBettingRound() {
-    alert('Setzrunde beginnt!');
     bettingPhase = true;
     currentPlayer = 1; // Setze auf Spieler 1
 
@@ -131,8 +121,6 @@ function advanceToNextPlayer() {
     currentPlayer++;
     if (currentPlayer <= 4) {
         activatePlayer(currentPlayer);
-    } else {
-        alert('Alle Spieler haben gesetzt.');
     }
 }
 
