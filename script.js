@@ -1,9 +1,10 @@
 let currentPot = 0;
+let currentBet = 0;
 let players = {
-    player1: { chips: 1000 },
-    player2: { chips: 1000 },
-    player3: { chips: 1000 },
-    player4: { chips: 1000 }
+    player1: { chips: 1000, inGame: true },
+    player2: { chips: 1000, inGame: true },
+    player3: { chips: 1000, inGame: true },
+    player4: { chips: 1000, inGame: true }
 };
 
 // Runde starten: Frage und Tipps festlegen
@@ -15,19 +16,38 @@ function startRound() {
 
     // Setze Frage und Tipps für alle Spieler
     document.querySelectorAll('.question').forEach(el => el.textContent = question);
-    document.querySelectorAll('.tip1').forEach(el => el.textContent = tip1);
-    document.querySelectorAll('.tip2').forEach(el => el.textContent = tip2);
-    document.querySelectorAll('.tip3').forEach(el => el.textContent = tip3);
+    document.querySelectorAll('.tip1').forEach(el => el.textContent = '---');
+    document.querySelectorAll('.tip2').forEach(el => el.textContent = '---');
+    document.querySelectorAll('.tip3').forEach(el => el.textContent = '---');
 }
 
-// Setzen: Chips werden von den Spielern abgezogen und zum Pot hinzugefügt
-function placeBet(playerId) {
+// Tipp aufdecken
+function revealTip(tipNumber) {
+    const tip = document.getElementById(`tip${tipNumber}`).value;
+    document.querySelectorAll(`.tip${tipNumber}`).forEach(el => el.textContent = tip);
+}
+
+// Einsatz setzen (Raise oder Call)
+function placeBet(playerId, action) {
     const betAmount = parseInt(document.getElementById(`${playerId}-bet`).value);
     const playerChips = players[playerId].chips;
 
-    if (betAmount <= 0 || betAmount > playerChips) {
+    if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerChips) {
         alert("Ungültiger Einsatz!");
         return;
+    }
+
+    if (action === 'raise') {
+        if (betAmount <= currentBet) {
+            alert("Der Einsatz muss höher als der aktuelle Einsatz sein.");
+            return;
+        }
+        currentBet = betAmount;
+    } else if (action === 'call') {
+        if (betAmount < currentBet) {
+            alert("Du musst mindestens den aktuellen Einsatz mitgehen.");
+            return;
+        }
     }
 
     players[playerId].chips -= betAmount;  // Chips abziehen
@@ -36,6 +56,12 @@ function placeBet(playerId) {
     // Aktualisiere die Anzeige des Chipsstands und des Pots
     document.getElementById(`${playerId}-chips`).textContent = players[playerId].chips;
     document.getElementById('pot').textContent = currentPot;
+}
+
+// Spieler aussteigen lassen (Fold)
+function fold(playerId) {
+    players[playerId].inGame = false;
+    alert(`${playerId} ist ausgestiegen.`);
 }
 
 // Startchips setzen
