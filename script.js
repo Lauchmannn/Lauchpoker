@@ -1,3 +1,15 @@
+// Öffnet das jeweilige Menü basierend auf der Auswahl
+function openMenu(menuId) {
+    document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
+    document.getElementById(menuId + '-menu').style.display = 'block';
+}
+
+// Schließt das aktuelle Menü
+function closeMenu() {
+    document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
+    document.getElementById('main-menu').style.display = 'block';
+}
+
 // Startchips setzen (vom Moderator) und im LocalStorage speichern
 function setStartingChips() {
     const startingChips = document.getElementById('starting-chips').value;
@@ -52,22 +64,11 @@ function startRound() {
     const tip2 = document.getElementById('tip2').value;
     const tip3 = document.getElementById('tip3').value;
 
-    document.getElementById('player-question').textContent = question;
+    document.querySelectorAll('.menu .question').forEach(element => element.textContent = question);
 
-    document.getElementById('player1-tip1').textContent = '---';
-    document.getElementById('player2-tip1').textContent = '---';
-    document.getElementById('player3-tip1').textContent = '---';
-    document.getElementById('player4-tip1').textContent = '---';
-
-    document.getElementById('player1-tip2').textContent = '---';
-    document.getElementById('player2-tip2').textContent = '---';
-    document.getElementById('player3-tip2').textContent = '---';
-    document.getElementById('player4-tip2').textContent = '---';
-
-    document.getElementById('player1-tip3').textContent = '---';
-    document.getElementById('player2-tip3').textContent = '---';
-    document.getElementById('player3-tip3').textContent = '---';
-    document.getElementById('player4-tip3').textContent = '---';
+    document.querySelectorAll('.tip1').forEach(element => element.textContent = '---');
+    document.querySelectorAll('.tip2').forEach(element => element.textContent = '---');
+    document.querySelectorAll('.tip3').forEach(element => element.textContent = '---');
 
     localStorage.setItem('question', question);
     localStorage.setItem('tip1', tip1);
@@ -81,10 +82,7 @@ function startRound() {
 function revealTip(tipNumber) {
     const tip = localStorage.getItem('tip' + tipNumber);
 
-    document.getElementById('player1-tip' + tipNumber).textContent = tip;
-    document.getElementById('player2-tip' + tipNumber).textContent = tip;
-    document.getElementById('player3-tip' + tipNumber).textContent = tip;
-    document.getElementById('player4-tip' + tipNumber).textContent = tip;
+    document.querySelectorAll('.tip' + tipNumber).forEach(element => element.textContent = tip);
 
     alert('Tipp ' + tipNumber + ' aufgedeckt.');
 }
@@ -97,24 +95,15 @@ window.onload = function() {
     const savedTip3 = localStorage.getItem('tip3');
 
     if (savedQuestion) {
-        document.getElementById('player-question').textContent = savedQuestion;
+        document.querySelectorAll('.question').forEach(element => element.textContent = savedQuestion);
     }
     if (savedTip1) {
-        document.getElementById('player1-tip1').textContent = savedTip1;
-        document.getElementById('player2-tip1').textContent = savedTip1;
-        document.getElementById('player3-tip1').textContent = savedTip1;
-        document.getElementById('player4-tip1').textContent = savedTip1;
+        document.querySelectorAll('.tip1').forEach(element => element.textContent = savedTip1);
     }
     if (savedTip2) {
-        document.getElementById('player1-tip2').textContent = savedTip2;
-        document.getElementById('player2-tip2').textContent = savedTip2;
-        document.getElementById('player3-tip2').textContent = savedTip2;
-        document.getElementById('player4-tip2').textContent = savedTip2;
+        document.querySelectorAll('.tip2').forEach(element => element.textContent = savedTip2);
     }
     if (savedTip3) {
-        document.getElementById('player1-tip3').textContent = savedTip3;
-        document.getElementById('player2-tip3').textContent = savedTip3;
-        document.getElementById('player3-tip3').textContent = savedTip3;
-        document.getElementById('player4-tip3').textContent = savedTip3;
+        document.querySelectorAll('.tip3').forEach(element => element.textContent = savedTip3);
     }
 }
