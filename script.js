@@ -54,12 +54,8 @@ function setStartingChips() {
     localStorage.setItem('player4Chips', startingChips);
 }
 
-// Einsatz setzen (Raise oder Call)
+// Einsatz setzen
 function placeBet(player, action) {
-    if (!bettingPhase || !playersInRound[player]) {
-        return;  // Setzen nicht erlaubt, wenn die Wettphase nicht gestartet wurde oder der Spieler gefoldet hat
-    }
-
     const betInput = document.getElementById(`${player}-bet`);
     const chipsElement = document.getElementById(`${player}-chips`);
     const currentChips = parseInt(chipsElement.textContent);
@@ -70,7 +66,9 @@ function placeBet(player, action) {
         return; // Ungültiger Einsatz
     }
 
-    if (action === 'raise') {
+    if (action === 'set') {
+        currentBet = betAmount; // Der erste Spieler setzt den Anfangseinsatz
+    } else if (action === 'raise') {
         if (betAmount <= currentBet) {
             alert("Der Einsatz muss höher als der aktuelle Einsatz sein.");
             return;  // Einsatz muss höher sein als der aktuelle höchste Einsatz
@@ -125,12 +123,14 @@ function activatePlayer(player) {
     document.getElementById(`signal-player${player}`).classList.add('active');
 
     document.querySelectorAll('input[type="number"]').forEach(input => input.disabled = true);
+    document.querySelectorAll('button[id^="set-player"]').forEach(button => button.disabled = true);
     document.querySelectorAll('button[id^="bet-player"]').forEach(button => button.disabled = true);
     document.querySelectorAll('button[id^="call-player"]').forEach(button => button.disabled = true);
     document.querySelectorAll('button[id^="fold-player"]').forEach(button => button.disabled = true);
 
     if (playersInRound[player]) {
         document.getElementById(`player${player}-bet`).disabled = false;
+        document.getElementById(`set-player${player}`).disabled = false;
         document.getElementById(`bet-player${player}`).disabled = false;
         document.getElementById(`call-player${player}`).disabled = false;
         document.getElementById(`fold-player${player}`).disabled = false;
