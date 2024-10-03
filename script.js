@@ -1,3 +1,13 @@
+// Startchips setzen (vom Moderator)
+function setStartingChips() {
+    const startingChips = document.getElementById('starting-chips').value;
+    document.getElementById('player1-chips').textContent = startingChips;
+    document.getElementById('player2-chips').textContent = startingChips;
+    document.getElementById('player3-chips').textContent = startingChips;
+    document.getElementById('player4-chips').textContent = startingChips;
+    alert('Startchips für alle Spieler auf ' + startingChips + ' gesetzt.');
+}
+
 // Öffnet das jeweilige Menü basierend auf der Auswahl
 function openMenu(menuId) {
     document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
@@ -12,10 +22,18 @@ function closeMenu() {
 
 // Einsätze setzen
 function placeBet(player) {
-    const bet = document.getElementById(player + '-bet').value;
+    const bet = parseInt(document.getElementById(player + '-bet').value);
     const chips = document.getElementById(player + '-chips');
-    chips.textContent = parseInt(chips.textContent) - bet;
-    alert(player + ' hat ' + bet + ' Chips gesetzt.');
+    const currentChips = parseInt(chips.textContent);
+
+    if (bet > currentChips) {
+        alert(player + ' kann nicht mehr Chips setzen, als verfügbar sind.');
+    } else if (bet <= 0) {
+        alert('Einsatz muss größer als 0 sein.');
+    } else {
+        chips.textContent = currentChips - bet;
+        alert(player + ' hat ' + bet + ' Chips gesetzt.');
+    }
 }
 
 // Blinds anpassen
