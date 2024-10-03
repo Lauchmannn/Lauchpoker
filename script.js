@@ -7,7 +7,7 @@ let players = {
     player4: { chips: 1000, inGame: true, hasBet: false }
 };
 
-// Runde starten: Frage und Tipps festlegen
+// Runde starten: Frage und Tipps festlegen und Pot resetten
 function startRound() {
     currentPot = 0;
     currentBet = 0;
@@ -16,13 +16,14 @@ function startRound() {
         players[player].inGame = true;
         document.getElementById(`${player}-chips`).textContent = players[player].chips;
     }
-    document.getElementById('pot').textContent = currentPot;
+    updatePotDisplay();
 
     const question = document.getElementById('question').value;
     const tip1 = document.getElementById('tip1').value;
     const tip2 = document.getElementById('tip2').value;
     const tip3 = document.getElementById('tip3').value;
 
+    // Frage und Tipps setzen
     document.querySelectorAll('.question').forEach(el => el.textContent = question);
     document.querySelectorAll('.tip1').forEach(el => el.textContent = '---');
     document.querySelectorAll('.tip2').forEach(el => el.textContent = '---');
@@ -64,13 +65,18 @@ function placeBet(playerId, action) {
     currentPot += betAmount;
 
     document.getElementById(`${playerId}-chips`).textContent = players[playerId].chips;
-    document.getElementById('pot').textContent = currentPot;
+    updatePotDisplay();
 }
 
 // Spieler aussteigen lassen (Fold)
 function fold(playerId) {
     players[playerId].inGame = false;
     alert(`${playerId} ist ausgestiegen.`);
+}
+
+// Pot anzeigen und aktualisieren
+function updatePotDisplay() {
+    document.querySelectorAll('.pot').forEach(el => el.textContent = currentPot);
 }
 
 // Startchips setzen
