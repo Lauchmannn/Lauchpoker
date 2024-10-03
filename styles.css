@@ -1,19 +1,12 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
+.signal {
+    width: 15px;
+    height: 15px;
+    background-color: grey;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
 }
 
-#main-menu {
-    margin-top: 50px;
-}
-
-.menu {
-    display: none;
-    margin-top: 20px;
-}
-
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+.active {
+    background-color: green;
 }
