@@ -1,43 +1,19 @@
-/* Allgemeine Stile */
 body {
     font-family: Arial, sans-serif;
-}
-
-#control-panel {
-    display: block; /* Kontrollpanel nicht im Stream sichtbar */
-    padding: 20px;
-}
-
-#overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    color: white;
-    font-size: 24px;
     text-align: center;
 }
 
-#chips-display {
-    display: flex;
-    justify-content: space-around;
+#main-menu {
+    margin-top: 50px;
+}
+
+.menu {
+    display: none;
     margin-top: 20px;
 }
 
-#chips-display div {
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
-}
-
-#question-display {
-    font-size: 28px;
-    margin-top: 20px;
-}
-
-#tips-display {
-    font-size: 20px;
-    margin-top: 10px;
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
 }
