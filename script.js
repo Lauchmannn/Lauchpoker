@@ -1,13 +1,19 @@
 let currentPot = 0;
 let bettingPhase = false;
 
-// Runde starten: Frage und Antworten sammeln
+// Runde starten: Frage und Lösung sammeln
 function startRound() {
     const question = document.getElementById('question').value;
+    const solution = document.getElementById('solution').value;
+
+    // Speichere die Frage und Lösung
+    localStorage.setItem('question', question);
+    localStorage.setItem('solution', solution);
+
     document.querySelectorAll('.question').forEach(el => el.textContent = question);
 
     alert('Runde gestartet! Die Spieler können jetzt ihre Tipps abgeben.');
-    bettingPhase = false; // Setze die Wettrunde zurück
+    bettingPhase = true; // Aktiviere die Wettrunde
 }
 
 // Tipp von Spielern entgegennehmen
