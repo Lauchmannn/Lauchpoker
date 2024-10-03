@@ -3,37 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizpoker Overlay</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Test Overlay</title>
 </head>
 <body>
-    <h1>Overlay geladen</h1> <!-- Füge diese Zeile hinzu -->
-    <div id="overlay">
-        <div id="question-display"></div>
-        <div id="tips-display"></div>
-      <div id="answer-display"></div>
-
-    <div id="overlay">
-        <div id="question-display"></div>
-        <div id="tips-display"></div>
-        <div id="answer-display"></div>
-    </div>
-
-    <script>
-        function updateOverlay() {
-            const question = localStorage.getItem('question') || '';
-            const tip1 = localStorage.getItem('tip1') || '';
-            const tip2 = localStorage.getItem('tip2') || '';
-            const tip3 = localStorage.getItem('tip3') || '';
-            const answer = localStorage.getItem('answer') || '';
-
-            document.getElementById('question-display').innerHTML = `Frage: ${question}`;
-            document.getElementById('tips-display').innerHTML = `Tipp 1: ${tip1} <br> Tipp 2: ${tip2} <br> Tipp 3: ${tip3}`;
-            document.getElementById('answer-display').innerHTML = `Ergebnis: ${answer}`;
-        }
-
-        // Update the overlay every 2 seconds
-        setInterval(updateOverlay, 2000);
-    </script>
+    <h1>Overlay ist geladen</h1>
 </body>
 </html>
