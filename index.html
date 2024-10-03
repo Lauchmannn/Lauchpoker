@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizpoker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -26,7 +27,7 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="text" id="player1-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player1')">Tipp abgeben</button>
+        <button onclick="submitAnswer('player1')" id="submit-player1">Tipp abgeben</button>
         <p>Chips: <span id="player1-chips">1000</span></p>
         <p>Pot: <span id="player1-pot">0</span></p>
         <input type="number" id="player1-bet" placeholder="Einsatz" disabled>
@@ -43,7 +44,7 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="text" id="player2-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player2')">Tipp abgeben</button>
+        <button onclick="submitAnswer('player2')" id="submit-player2">Tipp abgeben</button>
         <p>Chips: <span id="player2-chips">1000</span></p>
         <p>Pot: <span id="player2-pot">0</span></p>
         <input type="number" id="player2-bet" placeholder="Einsatz" disabled>
@@ -60,7 +61,7 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="text" id="player3-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player3')">Tipp abgeben</button>
+        <button onclick="submitAnswer('player3')" id="submit-player3">Tipp abgeben</button>
         <p>Chips: <span id="player3-chips">1000</span></p>
         <p>Pot: <span id="player3-pot">0</span></p>
         <input type="number" id="player3-bet" placeholder="Einsatz" disabled>
@@ -77,7 +78,7 @@
         <p>Tipp 2: <span class="tip2">---</span></p>
         <p>Tipp 3: <span class="tip3">---</span></p>
         <input type="text" id="player4-answer" placeholder="Tipp eingeben">
-        <button onclick="submitAnswer('player4')">Tipp abgeben</button>
+        <button onclick="submitAnswer('player4')" id="submit-player4">Tipp abgeben</button>
         <p>Chips: <span id="player4-chips">1000</span></p>
         <p>Pot: <span id="player4-pot">0</span></p>
         <input type="number" id="player4-bet" placeholder="Einsatz" disabled>
