@@ -1,20 +1,28 @@
 let currentPot = 0;
 let currentBet = 0;
 let players = {
-    player1: { chips: 1000, inGame: true },
-    player2: { chips: 1000, inGame: true },
-    player3: { chips: 1000, inGame: true },
-    player4: { chips: 1000, inGame: true }
+    player1: { chips: 1000, inGame: true, hasBet: false },
+    player2: { chips: 1000, inGame: true, hasBet: false },
+    player3: { chips: 1000, inGame: true, hasBet: false },
+    player4: { chips: 1000, inGame: true, hasBet: false }
 };
 
 // Runde starten: Frage und Tipps festlegen
 function startRound() {
+    currentPot = 0;
+    currentBet = 0;
+    for (let player in players) {
+        players[player].hasBet = false;
+        players[player].inGame = true;
+        document.getElementById(`${player}-chips`).textContent = players[player].chips;
+    }
+    document.getElementById('pot').textContent = currentPot;
+
     const question = document.getElementById('question').value;
     const tip1 = document.getElementById('tip1').value;
     const tip2 = document.getElementById('tip2').value;
     const tip3 = document.getElementById('tip3').value;
 
-    // Setze Frage und Tipps für alle Spieler
     document.querySelectorAll('.question').forEach(el => el.textContent = question);
     document.querySelectorAll('.tip1').forEach(el => el.textContent = '---');
     document.querySelectorAll('.tip2').forEach(el => el.textContent = '---');
@@ -43,17 +51,18 @@ function placeBet(playerId, action) {
             return;
         }
         currentBet = betAmount;
+        players[playerId].hasBet = true;
     } else if (action === 'call') {
         if (betAmount < currentBet) {
             alert("Du musst mindestens den aktuellen Einsatz mitgehen.");
             return;
         }
+        players[playerId].hasBet = true;
     }
 
-    players[playerId].chips -= betAmount;  // Chips abziehen
-    currentPot += betAmount;  // Betrag zum Pot hinzufügen
+    players[playerId].chips -= betAmount;
+    currentPot += betAmount;
 
-    // Aktualisiere die Anzeige des Chipsstands und des Pots
     document.getElementById(`${playerId}-chips`).textContent = players[playerId].chips;
     document.getElementById('pot').textContent = currentPot;
 }
