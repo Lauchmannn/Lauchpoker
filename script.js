@@ -6,7 +6,6 @@ function setStartingChips() {
     document.getElementById('player3-chips').textContent = startingChips;
     document.getElementById('player4-chips').textContent = startingChips;
 
-    // Startchips im LocalStorage speichern
     localStorage.setItem('player1Chips', startingChips);
     localStorage.setItem('player2Chips', startingChips);
     localStorage.setItem('player3Chips', startingChips);
@@ -35,51 +34,87 @@ function placeBet(player) {
 function adjustBlinds() {
     const smallBlind = document.getElementById('small-blind').value;
     const bigBlind = document.getElementById('big-blind').value;
-    alert('Small Blind: ' + smallBlind + ' | Big Blind: ' + bigBlind);
+    document.getElementById('player1-blind').textContent = 'Small Blind';
+    document.getElementById('player2-blind').textContent = 'Big Blind';
+    document.getElementById('player3-blind').textContent = 'Kein Blind';
+    document.getElementById('player4-blind').textContent = 'Kein Blind';
+
+    localStorage.setItem('smallBlind', smallBlind);
+    localStorage.setItem('bigBlind', bigBlind);
+
+    alert('Blinds eingestellt: Small Blind: ' + smallBlind + ' | Big Blind: ' + bigBlind);
 }
 
-// Frage und Tipps setzen
-function setQuestion() {
+// Runde starten: Frage und Blinds setzen
+function startRound() {
     const question = document.getElementById('question').value;
     const tip1 = document.getElementById('tip1').value;
     const tip2 = document.getElementById('tip2').value;
     const tip3 = document.getElementById('tip3').value;
-    alert('Frage: ' + question + '\nTipp 1: ' + tip1 + '\nTipp 2: ' + tip2 + '\nTipp 3: ' + tip3);
+
+    document.getElementById('player-question').textContent = question;
+
+    document.getElementById('player1-tip1').textContent = '---';
+    document.getElementById('player2-tip1').textContent = '---';
+    document.getElementById('player3-tip1').textContent = '---';
+    document.getElementById('player4-tip1').textContent = '---';
+
+    document.getElementById('player1-tip2').textContent = '---';
+    document.getElementById('player2-tip2').textContent = '---';
+    document.getElementById('player3-tip2').textContent = '---';
+    document.getElementById('player4-tip2').textContent = '---';
+
+    document.getElementById('player1-tip3').textContent = '---';
+    document.getElementById('player2-tip3').textContent = '---';
+    document.getElementById('player3-tip3').textContent = '---';
+    document.getElementById('player4-tip3').textContent = '---';
+
+    localStorage.setItem('question', question);
+    localStorage.setItem('tip1', tip1);
+    localStorage.setItem('tip2', tip2);
+    localStorage.setItem('tip3', tip3);
+
+    alert('Runde gestartet: Frage gesetzt.');
 }
 
-// Lösung setzen
-function setSolution() {
-    const solution = document.getElementById('solution').value;
-    document.getElementById('current-solution').querySelector('span').textContent = solution;
-    alert('Lösung gesetzt: ' + solution);
+// Tipp aufdecken
+function revealTip(tipNumber) {
+    const tip = localStorage.getItem('tip' + tipNumber);
 
-    // Optional: Lösung im LocalStorage speichern
-    localStorage.setItem('quizSolution', solution);
+    document.getElementById('player1-tip' + tipNumber).textContent = tip;
+    document.getElementById('player2-tip' + tipNumber).textContent = tip;
+    document.getElementById('player3-tip' + tipNumber).textContent = tip;
+    document.getElementById('player4-tip' + tipNumber).textContent = tip;
+
+    alert('Tipp ' + tipNumber + ' aufgedeckt.');
 }
 
-// Wenn die Seite geladen wird, überprüfen, ob es bereits eine gespeicherte Lösung gibt und gespeicherte Chips laden
+// Beim Laden der Seite gespeicherte Frage und Tipps laden
 window.onload = function() {
-    const savedSolution = localStorage.getItem('quizSolution');
-    if (savedSolution) {
-        document.getElementById('current-solution').querySelector('span').textContent = savedSolution;
-    }
+    const savedQuestion = localStorage.getItem('question');
+    const savedTip1 = localStorage.getItem('tip1');
+    const savedTip2 = localStorage.getItem('tip2');
+    const savedTip3 = localStorage.getItem('tip3');
 
-    // Gespeicherte Chips laden
-    const player1Chips = localStorage.getItem('player1Chips');
-    const player2Chips = localStorage.getItem('player2Chips');
-    const player3Chips = localStorage.getItem('player3Chips');
-    const player4Chips = localStorage.getItem('player4Chips');
-
-    if (player1Chips) {
-        document.getElementById('player1-chips').textContent = player1Chips;
+    if (savedQuestion) {
+        document.getElementById('player-question').textContent = savedQuestion;
     }
-    if (player2Chips) {
-        document.getElementById('player2-chips').textContent = player2Chips;
+    if (savedTip1) {
+        document.getElementById('player1-tip1').textContent = savedTip1;
+        document.getElementById('player2-tip1').textContent = savedTip1;
+        document.getElementById('player3-tip1').textContent = savedTip1;
+        document.getElementById('player4-tip1').textContent = savedTip1;
     }
-    if (player3Chips) {
-        document.getElementById('player3-chips').textContent = player3Chips;
+    if (savedTip2) {
+        document.getElementById('player1-tip2').textContent = savedTip2;
+        document.getElementById('player2-tip2').textContent = savedTip2;
+        document.getElementById('player3-tip2').textContent = savedTip2;
+        document.getElementById('player4-tip2').textContent = savedTip2;
     }
-    if (player4Chips) {
-        document.getElementById('player4-chips').textContent = player4Chips;
+    if (savedTip3) {
+        document.getElementById('player1-tip3').textContent = savedTip3;
+        document.getElementById('player2-tip3').textContent = savedTip3;
+        document.getElementById('player3-tip3').textContent = savedTip3;
+        document.getElementById('player4-tip3').textContent = savedTip3;
     }
 }
