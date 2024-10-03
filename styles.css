@@ -4,7 +4,7 @@ body {
 }
 
 #control-panel {
-    display: none; /* Kontrollpanel nicht im Stream sichtbar */
+    display: block; /* Kontrollpanel nicht im Stream sichtbar */
     padding: 20px;
 }
 
