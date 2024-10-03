@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizpoker Kontrollpanel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="control-panel">
+        <h1>Kontrollpanel</h1>
+        <div>
+            <label for="question">Frage:</label>
+            <textarea id="question"></textarea>
+        </div>
+        <div>
+            <label for="tip1">Tipp 1:</label>
+            <input type="text" id="tip1">
+        </div>
+        <div>
+            <label for="tip2">Tipp 2:</label>
+            <input type="text" id="tip2">
+        </div>
+        <div>
+            <label for="tip3">Tipp 3:</label>
+            <input type="text" id="tip3">
+        </div>
+        <div>
+            <label for="answer">Ergebnis:</label>
+            <input type="text" id="answer">
+        </div>
+        <button onclick="startRound()">Runde starten</button>
+        <button onclick="revealAnswers()">Antworten aufdecken</button>
+    </div>
+
+    <script>
+        function startRound() {
+            const question = document.getElementById('question').value;
+            const tip1 = document.getElementById('tip1').value;
+            const tip2 = document.getElementById('tip2').value;
+            const tip3 = document.getElementById('tip3').value;
+
+            localStorage.setItem('question', question);
+            localStorage.setItem('tip1', tip1);
+            localStorage.setItem('tip2', tip2);
+            localStorage.setItem('tip3', tip3);
+        }
+
+        function revealAnswers() {
+            const answer = document.getElementById('answer').value;
+            localStorage.setItem('answer', answer);
+        }
+    </script>
+</body>
+</html>
