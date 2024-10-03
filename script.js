@@ -3,7 +3,7 @@ let bettingPhase = false;
 let currentPlayer = 1;
 let currentBet = 0;  // Der aktuelle höchste Einsatz
 let playersInRound = { 'player1': true, 'player2': true, 'player3': true, 'player4': true };  // Spieler in der Runde
-let initialBets = { 'player1': 0, 'player2': 0, 'player3': 0, 'player4': 0 };  // Für Blinds und Einsätze
+let initialBets = { 'player1': 0, 'player2': 0, 'player3': 0, 'player4': 0 };  // Für Einsätze
 
 // Runde starten: Frage, Lösung und Tipps sammeln
 function startRound() {
@@ -40,7 +40,7 @@ function submitAnswer(player) {
     document.getElementById(`submit-${player}`).disabled = true;
 }
 
-// Startchips setzen und Blinds automatisch abziehen
+// Startchips setzen
 function setStartingChips() {
     const startingChips = document.getElementById('starting-chips').value;
     document.getElementById('player1-chips').textContent = startingChips;
@@ -52,27 +52,6 @@ function setStartingChips() {
     localStorage.setItem('player2Chips', startingChips);
     localStorage.setItem('player3Chips', startingChips);
     localStorage.setItem('player4Chips', startingChips);
-
-    // Ziehe automatisch die Blinds ab
-    const smallBlind = parseInt(document.getElementById('small-blind').value);
-    const bigBlind = parseInt(document.getElementById('big-blind').value);
-
-    deductBlind('player1', smallBlind);
-    deductBlind('player2', bigBlind);
-
-    initialBets['player1'] = smallBlind;
-    initialBets['player2'] = bigBlind;
-    currentBet = bigBlind;
-}
-
-// Blind automatisch abziehen
-function deductBlind(player, blindAmount) {
-    const chipsElement = document.getElementById(`${player}-chips`);
-    const currentChips = parseInt(chipsElement.textContent);
-
-    chipsElement.textContent = currentChips - blindAmount;
-    currentPot += blindAmount;
-    updatePotDisplay();
 }
 
 // Einsatz setzen (Raise oder Call)
