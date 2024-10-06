@@ -1,113 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizpoker</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .player {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+        }
+        .chips {
+            font-weight: bold;
+        }
+        .blind {
+            color: red;
+        }
+        .question, .tips {
+            margin: 20px 0;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Quizpoker</h1>
 
-    <!-- Hauptmenü -->
-    <div id="main-menu">
-        <button onclick="openMenu('player1')">Spieler 1</button>
-        <button onclick="openMenu('player2')">Spieler 2</button>
-        <button onclick="openMenu('player3')">Spieler 3</button>
-        <button onclick="openMenu('player4')">Spieler 4</button>
-        <button onclick="openMenu('moderator')">Moderator</button>
+    <div class="question">
+        <h2>Aktuelle Frage:</h2>
+        <p id="questionText">Hier erscheint die Frage...</p>
     </div>
 
-    <!-- Spielermenü für Spieler 1 -->
-    <div id="player1-menu" class="menu" style="display:none;">
-        <h2>Spieler 1 <span class="signal" id="signal-player1"></span></h2>
-        <p>Frage: <span class="question">Noch keine Frage</span></p>
-        <p>Tipp 1: <span class="tip1">---</span></p>
-        <p>Tipp 2: <span class="tip2">---</span></p>
-        <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="number" id="player1-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player1', 'raise')">Erhöhen</button>
-        <button onclick="placeBet('player1', 'call')">Mitgehen</button>
-        <button onclick="fold('player1')">Aussteigen</button>
-        <p>Chips: <span id="player1-chips">1000</span></p>
-        <p>Pot: <span class="pot">0</span></p>
-        <button onclick="closeMenu()">Zurück</button>
+    <div class="tips">
+        <h3>Tipps:</h3>
+        <ul id="tipList">
+            <li>Tipp 1: ???</li>
+            <li>Tipp 2: ???</li>
+            <li>Tipp 3: ???</li>
+        </ul>
     </div>
 
-    <!-- Wiederhole die Menüs für Spieler 2, 3, und 4 -->
-    <div id="player2-menu" class="menu" style="display:none;">
-        <h2>Spieler 2 <span class="signal" id="signal-player2"></span></h2>
-        <p>Frage: <span class="question">Noch keine Frage</span></p>
-        <p>Tipp 1: <span class="tip1">---</span></p>
-        <p>Tipp 2: <span class="tip2">---</span></p>
-        <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="number" id="player2-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player2', 'raise')">Erhöhen</button>
-        <button onclick="placeBet('player2', 'call')">Mitgehen</button>
-        <button onclick="fold('player2')">Aussteigen</button>
-        <p>Chips: <span id="player2-chips">1000</span></p>
-        <p>Pot: <span class="pot">0</span></p>
-        <button onclick="closeMenu()">Zurück</button>
+    <div id="players">
+        <div class="player" id="player1">
+            <h3>Spieler 1</h3>
+            <p>Chips: <span class="chips" id="chipsPlayer1">1000</span></p>
+            <p class="blind" id="blindPlayer1"></p>
+            <button onclick="bet(1)">Setzen</button>
+            <button onclick="fold(1)">Passen</button>
+        </div>
+        <div class="player" id="player2">
+            <h3>Spieler 2</h3>
+            <p>Chips: <span class="chips" id="chipsPlayer2">1000</span></p>
+            <p class="blind" id="blindPlayer2"></p>
+            <button onclick="bet(2)">Setzen</button>
+            <button onclick="fold(2)">Passen</button>
+        </div>
+        <!-- Weitere Spieler können hinzugefügt werden -->
     </div>
 
-    <!-- Spielermenü für Spieler 3 -->
-    <div id="player3-menu" class="menu" style="display:none;">
-        <h2>Spieler 3 <span class="signal" id="signal-player3"></span></h2>
-        <p>Frage: <span class="question">Noch keine Frage</span></p>
-        <p>Tipp 1: <span class="tip1">---</span></p>
-        <p>Tipp 2: <span class="tip2">---</span></p>
-        <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="number" id="player3-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player3', 'raise')">Erhöhen</button>
-        <button onclick="placeBet('player3', 'call')">Mitgehen</button>
-        <button onclick="fold('player3')">Aussteigen</button>
-        <p>Chips: <span id="player3-chips">1000</span></p>
-        <p>Pot: <span class="pot">0</span></p>
-        <button onclick="closeMenu()">Zurück</button>
-    </div>
-
-    <!-- Spielermenü für Spieler 4 -->
-    <div id="player4-menu" class="menu" style="display:none;">
-        <h2>Spieler 4 <span class="signal" id="signal-player4"></span></h2>
-        <p>Frage: <span class="question">Noch keine Frage</span></p>
-        <p>Tipp 1: <span class="tip1">---</span></p>
-        <p>Tipp 2: <span class="tip2">---</span></p>
-        <p>Tipp 3: <span class="tip3">---</span></p>
-        <input type="number" id="player4-bet" placeholder="Einsatz" min="1">
-        <button onclick="placeBet('player4', 'raise')">Erhöhen</button>
-        <button onclick="placeBet('player4', 'call')">Mitgehen</button>
-        <button onclick="fold('player4')">Aussteigen</button>
-        <p>Chips: <span id="player4-chips">1000</span></p>
-        <p>Pot: <span class="pot">0</span></p>
-        <button onclick="closeMenu()">Zurück</button>
-    </div>
-
-    <!-- Moderatorenmenü -->
-    <div id="moderator-menu" class="menu" style="display:none;">
-        <h2>Moderator</h2>
-
-        <h3>Startchips für alle Spieler festlegen:</h3>
-        <input type="number" id="starting-chips" value="1000" placeholder="Startchips eingeben">
-        <button onclick="setStartingChips()">Startchips setzen</button>
-
-        <h3>Frage, Lösung und Tipps:</h3>
-        <input type="text" id="question" placeholder="Frage eingeben">
-        <input type="text" id="tip1" placeholder="Tipp 1 eingeben">
-        <input type="text" id="tip2" placeholder="Tipp 2 eingeben">
-        <input type="text" id="tip3" placeholder="Tipp 3 eingeben">
-        <button onclick="startRound()">Runde starten</button>
-        <button onclick="revealTip(1)">Tipp 1 aufdecken</button>
-        <button onclick="revealTip(2)">Tipp 2 aufdecken</button>
-        <button onclick="revealTip(3)">Tipp 3 aufdecken</button>
-
-        <h3>Pot: <span id="pot">0</span></h3>
-
-        <h3>Antworten anzeigen:</h3>
-        <p>Spieler 1 Antwort: <span id="answer-player1">---</span></p>
-        <p>Spieler 2 Antwort: <span id="answer-player2">---</span></p>
-        <p>Spieler 3 Antwort: <span id="answer-player3">---</span></p>
-        <p>Spieler 4 Antwort: <span id="answer-player4">---</span></p>
-
-        <button onclick="closeMenu()">Zurück</button>
+    <div class="controls">
+        <button onclick="nextQuestion()">Nächste Frage</button>
+        <button onclick="revealTip(1)">Tipp 1 zeigen</button>
+        <button onclick="revealTip(2)">Tipp 2 zeigen</button>
+        <button onclick="revealTip(3)">Tipp 3 zeigen</button>
     </div>
 
     <script src="script.js"></script>
