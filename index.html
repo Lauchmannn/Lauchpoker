@@ -25,6 +25,11 @@
         .controls {
             margin-top: 20px;
         }
+        #pot {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -62,11 +67,15 @@
         <!-- Weitere Spieler können hinzugefügt werden -->
     </div>
 
+    <div id="pot">Pot: <span id="potAmount">0</span> Chips</div>
+
     <div class="controls">
         <button onclick="nextQuestion()">Nächste Frage</button>
         <button onclick="revealTip(1)">Tipp 1 zeigen</button>
         <button onclick="revealTip(2)">Tipp 2 zeigen</button>
         <button onclick="revealTip(3)">Tipp 3 zeigen</button>
+        <button onclick="distributePot(1)">Pot an Spieler 1 verteilen</button>
+        <button onclick="distributePot(2)">Pot an Spieler 2 verteilen</button>
     </div>
 
     <script src="script.js"></script>
