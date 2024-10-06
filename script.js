@@ -3,6 +3,7 @@ let players = [
     {id: 2, chips: 1000, blind: 'none'}
 ];
 
+let pot = 0;
 let currentQuestion = 0;
 const questions = [
     {
@@ -20,10 +21,20 @@ function updateChips(playerId, amount) {
     document.getElementById(`chipsPlayer${playerId}`).innerText = players[playerId - 1].chips;
 }
 
+function updatePot(amount) {
+    pot += amount;
+    document.getElementById('potAmount').innerText = pot;
+}
+
 function bet(playerId) {
     const amount = 100; // Beispielbetrag
-    updateChips(playerId, -amount);
-    alert(`Spieler ${playerId} setzt ${amount} Chips.`);
+    if (players[playerId - 1].chips >= amount) {
+        updateChips(playerId, -amount);
+        updatePot(amount);
+        alert(`Spieler ${playerId} setzt ${amount} Chips.`);
+    } else {
+        alert(`Spieler ${playerId} hat nicht genug Chips.`);
+    }
 }
 
 function fold(playerId) {
@@ -49,4 +60,11 @@ function resetTips() {
 function revealTip(tipNumber) {
     const tipText = questions[currentQuestion].tips[tipNumber - 1];
     document.getElementById('tipList').children[tipNumber - 1].innerText = tipText;
+}
+
+function distributePot(winnerId) {
+    alert(`Spieler ${winnerId} gewinnt den Pot von ${pot} Chips.`);
+    updateChips(winnerId, pot);
+    pot = 0; // Pot zurücksetzen
+    updatePot(0);
 }
