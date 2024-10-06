@@ -1,101 +1,52 @@
-let currentPot = 0;
-let currentBet = 0;
-let players = {
-    player1: { chips: 1000, inGame: true, hasBet: false },
-    player2: { chips: 1000, inGame: true, hasBet: false },
-    player3: { chips: 1000, inGame: true, hasBet: false },
-    player4: { chips: 1000, inGame: true, hasBet: false }
-};
+let players = [
+    {id: 1, chips: 1000, blind: 'none'},
+    {id: 2, chips: 1000, blind: 'none'}
+];
 
-// Runde starten: Frage und Tipps festlegen und Pot resetten
-function startRound() {
-    currentPot = 0;
-    currentBet = 0;
-    for (let player in players) {
-        players[player].hasBet = false;
-        players[player].inGame = true;
-        document.getElementById(`${player}-chips`).textContent = players[player].chips;
+let currentQuestion = 0;
+const questions = [
+    {
+        question: "Was ist die Hauptstadt von Deutschland?",
+        tips: ["Tipp 1: Es ist eine große Stadt", "Tipp 2: Sie liegt im Osten Deutschlands", "Tipp 3: Sie ist auch ein Bundesland"]
+    },
+    {
+        question: "Welches Element hat das chemische Symbol H?",
+        tips: ["Tipp 1: Es ist das leichteste Element", "Tipp 2: Es ist farblos", "Tipp 3: Es ist explosiv"]
     }
-    updatePotDisplay();
+];
 
-    const question = document.getElementById('question').value;
-    const tip1 = document.getElementById('tip1').value;
-    const tip2 = document.getElementById('tip2').value;
-    const tip3 = document.getElementById('tip3').value;
-
-    // Frage und Tipps setzen
-    document.querySelectorAll('.question').forEach(el => el.textContent = question);
-    document.querySelectorAll('.tip1').forEach(el => el.textContent = '---');
-    document.querySelectorAll('.tip2').forEach(el => el.textContent = '---');
-    document.querySelectorAll('.tip3').forEach(el => el.textContent = '---');
+function updateChips(playerId, amount) {
+    players[playerId - 1].chips += amount;
+    document.getElementById(`chipsPlayer${playerId}`).innerText = players[playerId - 1].chips;
 }
 
-// Tipp aufdecken
-function revealTip(tipNumber) {
-    const tip = document.getElementById(`tip${tipNumber}`).value;
-    document.querySelectorAll(`.tip${tipNumber}`).forEach(el => el.textContent = tip);
+function bet(playerId) {
+    const amount = 100; // Beispielbetrag
+    updateChips(playerId, -amount);
+    alert(`Spieler ${playerId} setzt ${amount} Chips.`);
 }
 
-// Einsatz setzen (Raise oder Call)
-function placeBet(playerId, action) {
-    const betAmount = parseInt(document.getElementById(`${playerId}-bet`).value);
-    const playerChips = players[playerId].chips;
-
-    if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerChips) {
-        alert("Ungültiger Einsatz!");
-        return;
-    }
-
-    if (action === 'raise') {
-        if (betAmount <= currentBet) {
-            alert("Der Einsatz muss höher als der aktuelle Einsatz sein.");
-            return;
-        }
-        currentBet = betAmount;
-        players[playerId].hasBet = true;
-    } else if (action === 'call') {
-        if (betAmount < currentBet) {
-            alert("Du musst mindestens den aktuellen Einsatz mitgehen.");
-            return;
-        }
-        players[playerId].hasBet = true;
-    }
-
-    players[playerId].chips -= betAmount;
-    currentPot += betAmount;
-
-    document.getElementById(`${playerId}-chips`).textContent = players[playerId].chips;
-    updatePotDisplay();
-}
-
-// Spieler aussteigen lassen (Fold)
 function fold(playerId) {
-    players[playerId].inGame = false;
-    alert(`${playerId} ist ausgestiegen.`);
+    alert(`Spieler ${playerId} passt.`);
 }
 
-// Pot anzeigen und aktualisieren
-function updatePotDisplay() {
-    document.querySelectorAll('.pot').forEach(el => el.textContent = currentPot);
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion >= questions.length) {
+        currentQuestion = 0;
+    }
+    document.getElementById('questionText').innerText = questions[currentQuestion].question;
+    resetTips();
 }
 
-// Startchips setzen
-function setStartingChips() {
-    const startingChips = parseInt(document.getElementById('starting-chips').value);
-    for (let player in players) {
-        players[player].chips = startingChips;
-        document.getElementById(`${player}-chips`).textContent = startingChips;
+function resetTips() {
+    const tipList = document.getElementById('tipList').children;
+    for (let i = 0; i < tipList.length; i++) {
+        tipList[i].innerText = `Tipp ${i + 1}: ???`;
     }
 }
 
-// Menü öffnen
-function openMenu(menuId) {
-    document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
-    document.getElementById(`${menuId}-menu`).style.display = 'block';
-}
-
-// Menü schließen
-function closeMenu() {
-    document.querySelectorAll('.menu').forEach(menu => menu.style.display = 'none');
-    document.getElementById('main-menu').style.display = 'block';
+function revealTip(tipNumber) {
+    const tipText = questions[currentQuestion].tips[tipNumber - 1];
+    document.getElementById('tipList').children[tipNumber - 1].innerText = tipText;
 }
